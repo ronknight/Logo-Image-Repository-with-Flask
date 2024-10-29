@@ -89,7 +89,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 Ronknight - [@PinoyITSolution](https://twitter.com/PinoyITSolution)
 
-Project Link: [https://github.com/ronknight/image-repo-py-flask](https://github.com/ronknight/image-repo-py-flask)
+Project Link: [https://github.com/ronknight/Logo-Image-Repository-with-Flask](https://github.com/ronknight/Logo-Image-Repository-with-Flask)
 
 ## 🙏 Acknowledgments
 
