@@ -47,7 +47,7 @@ image-repo-py-flask/
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/ronknight/image-repo-py-flask.git
+git clone https://github.com/ronknight/Logo-Image-Repository-with-Flask.git
 cd image-repo-py-flask
 ```
 
