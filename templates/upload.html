@@ -1,0 +1,93 @@
+<!-- templates/upload.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Images</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f9f9f9;
+            margin: 0;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .upload-container {
+            width: 300px;
+            height: 200px;
+            border: 2px dashed #007BFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            cursor: pointer;
+        }
+        .upload-container.dragover {
+            border-color: #0056b3;
+            background-color: #f0f8ff;
+        }
+        #upload-status {
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Drag and Drop Image Upload</h1>
+    <div class="upload-container" id="dropzone">Drag and drop images here</div>
+    <div id="upload-status"></div>
+
+    <script>
+        const dropzone = document.getElementById("dropzone");
+        const uploadStatus = document.getElementById("upload-status");
+
+        dropzone.addEventListener("dragover", (event) => {
+            event.preventDefault();
+            dropzone.classList.add("dragover");
+        });
+
+        dropzone.addEventListener("dragleave", () => {
+            dropzone.classList.remove("dragover");
+        });
+
+        dropzone.addEventListener("drop", (event) => {
+            event.preventDefault();
+            dropzone.classList.remove("dragover");
+
+            const files = event.dataTransfer.files;
+            for (let file of files) {
+                uploadFile(file);
+            }
+        });
+
+        function uploadFile(file) {
+            const formData = new FormData();
+            formData.append("file", file);
+
+            fetch("/upload_image", {
+                method: "POST",
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    uploadStatus.innerHTML = `<p style="color: red;">Error: ${data.error}</p>`;
+                } else {
+                    uploadStatus.innerHTML = `<p style="color: green;">${data.message}: ${data.filename} (Brand: ${data.brand})</p>`;
+                }
+            })
+            .catch(error => {
+                uploadStatus.innerHTML = `<p style="color: red;">Error uploading file</p>`;
+            });
+        }
+    </script>
+</body>
+</html>

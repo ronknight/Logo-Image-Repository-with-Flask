@@ -1,0 +1,52 @@
+<!-- templates/view.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Uploaded Images</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .brand-section {
+            margin-bottom: 20px;
+        }
+        .brand-title {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .image-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .image-grid img {
+            width: 150px;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+            transition: transform 0.2s;
+        }
+        .image-grid img:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Uploaded Images by Brand</h1>
+
+    {% for brand, files in brands.items() %}
+    <div class="brand-section">
+        <div class="brand-title">{{ brand | capitalize }}</div>
+        <div class="image-grid">
+            {% for filename in files %}
+            <img src="{{ url_for('serve_image', filename=filename) }}" alt="{{ filename }}">
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+</body>
+</html>
